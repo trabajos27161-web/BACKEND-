@@ -40,31 +40,27 @@ app = FastAPI(
 # ============================================================
 # CONFIGURACIÓN CORS
 # ============================================================
-
-# Puedes configurar CORS_ORIGINS en Render como:
 #
-# https://verdant-basbousa-cfd10c.netlify.app,http://localhost:5173,http://localhost:3000
+# Frontend actual en Netlify:
+# https://gilded-entremet-c6b323.netlify.app
 #
-# Si la variable no existe, se utilizan estos valores por defecto.
+# Se mantiene también el dominio anterior por compatibilidad.
+# Los localhost permiten trabajar durante desarrollo local.
+#
 
-default_origins = [
+origins = [
+    # NUEVO FRONTEND NETLIFY
+    "https://gilded-entremet-c6b323.netlify.app",
+
+    # FRONTEND NETLIFY ANTERIOR
+    "https://verdant-basbousa-cfd10c.netlify.app",
+
+    # DESARROLLO LOCAL
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://verdant-basbousa-cfd10c.netlify.app",
 ]
-
-cors_origins_env = os.getenv("CORS_ORIGINS", "")
-
-if cors_origins_env.strip():
-    origins = [
-        origin.strip()
-        for origin in cors_origins_env.split(",")
-        if origin.strip()
-    ]
-else:
-    origins = default_origins
 
 
 app.add_middleware(
